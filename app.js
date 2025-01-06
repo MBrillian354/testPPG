@@ -46,10 +46,6 @@ app.use((req, res, next) => {
 //     next();
 // });
 
-app.use((req, res, next) => {
-    const delay = 200;
-    setTimeout(next, delay);
-});
 
 // Routes
 app.use('/api/users', usersRoutes);
@@ -91,7 +87,9 @@ app.use((error, req, res, next) => {
 mongoose.connect(MONGO_URI, clientOptions)
     .then(() => {
         console.log('Connected to MongoDB');
-        app.listen()
+        app.listen(process.env.PORT || PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        })
     })
     .catch((err) => {
         console.error('MongoDB connection error:', err);
