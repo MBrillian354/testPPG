@@ -1,0 +1,1 @@
+import{j as e}from"./index-DjI7ZG_S.js";const t=r=>e.jsx("div",{className:`text-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 ${r.className}}`,role:"alert",children:e.jsxs("p",{className:"block font-medium sm:inline",children:[" ",r.error]})});export{t as E};
