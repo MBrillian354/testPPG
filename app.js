@@ -59,9 +59,9 @@ app.use('/api/attendances', attendancesRoutes);
 app.use('/api/dashboard', dashboardRoutes)
 
 
-// app.use((req, res, next) => {
-//     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-// });
+app.use((req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 // Catch-all route for handling unknown routes
 app.use((req, res, next) => {
