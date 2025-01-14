@@ -183,14 +183,13 @@ const createTeachingGroup = async (req, res, next) => {
         await sess.commitTransaction();
     } catch (err) {
         console.log(err);
-        const error = new HttpError('Gagal mendaftarkan PAC', 500);
+        const error = new HttpError('Gagal mendaftarkan KA', 500);
         return next(error);
     }
 
-    res.status(202).json({ message: `Berhasil mendaftarkan PAC ${branchName}!`, teachingGroup: createdTeachingGroup });
+    res.status(202).json({ message: `Berhasil mendaftarkan KA ${branchName}!`, teachingGroup: createdTeachingGroup });
 }
 
-//referencing the existing code above, create an endpoint to delete a Branch and and endpoint to delete TeachingGroup
 const deleteBranch = async (req, res, next) => {
     const { branchId } = req.body;
 
@@ -207,7 +206,7 @@ const deleteBranch = async (req, res, next) => {
     }
 
     if (branch.teachingGroups.length > 0) {
-        return next(new HttpError('Gagal menghapus, terdapat PAC di PC ini!', 400));
+        return next(new HttpError('Gagal menghapus, terdapat KA di PC ini!', 400));
     }
 
     try {
@@ -241,6 +240,10 @@ const deleteTeachingGroup = async (req, res, next) => {
         return next(new HttpError('Associated branch not found!', 500));
     }
 
+    if (teachingGroup.teachingGroupYears.length > 0) {
+        return next(new HttpError('Gagal menghapus, terdapat data semester dalam KA ini!', 400));
+    }
+
     try {
         const sess = await mongoose.startSession();
         sess.startTransaction();
@@ -252,10 +255,10 @@ const deleteTeachingGroup = async (req, res, next) => {
         await sess.commitTransaction();
     } catch (err) {
         console.log(err);
-        return next(new HttpError('Gagal menghapus PAC!', 500));
+        return next(new HttpError('Gagal menghapus KA!', 500));
     }
 
-    res.status(200).json({ message: 'Berhasil menghapus PAC!' });
+    res.status(200).json({ message: 'Berhasil menghapus KA!' });
 };
 
 const updateBranch = async (req, res, next) => {
@@ -280,7 +283,7 @@ const updateBranch = async (req, res, next) => {
     }
 
     console.log(`branch with ID'${branch._id}' updated!`)
-    res.status(200).json({ message: 'Berhasil mengubah kelompok ajar!', branch: branch.toObject({ getters: true }) });
+    res.status(200).json({ message: 'Berhasil mengubah PC!', branch: branch.toObject({ getters: true }) });
 }
 
 const updateTeachingGroup = async (req, res, next) => {

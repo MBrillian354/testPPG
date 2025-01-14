@@ -38,13 +38,13 @@ app.use((req, res, next) => {
 });
 
 // CORS handling
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
 
-//     next();
-// });
+    next();
+});
 
 
 // Routes
@@ -58,9 +58,10 @@ app.use('/api/students', studentsRoutes);
 app.use('/api/attendances', attendancesRoutes);
 app.use('/api/dashboard', dashboardRoutes)
 
-app.use((req, res, next) => {
-res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
+
+// app.use((req, res, next) => {
+//     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+// });
 
 // Catch-all route for handling unknown routes
 app.use((req, res, next) => {

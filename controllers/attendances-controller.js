@@ -308,7 +308,7 @@ const getAttendanceReports = async (req, res, next) => {
             .populate({
                 path: 'classes',
                 populate: [
-                    { path: 'attendances', populate: { path: 'studentId', select: ['name', 'nis'] } },
+                    { path: 'attendances', populate: { path: 'studentId', select: ['name', 'nis', 'image'] } },
                     { path: 'teachers', select: ['name', 'nid'] }
                 ]
             })

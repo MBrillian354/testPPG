@@ -353,7 +353,7 @@ const deleteUser = async (req, res, next) => {
     }
 
     console.log(`User ${user.email} deleted`)
-    res.status(200).json({ message: 'User deleted successfully' });
+    res.status(200).json({ message: 'Berhasil menghapus user!' });
 };
 
 const bulkDeleteUsers = async (req, res, next) => {
@@ -385,7 +385,7 @@ const bulkDeleteUsers = async (req, res, next) => {
             // Delete user images
             if (user.image) {
                 const imagesFolder = path.resolve(__dirname, '../');
-                const imagePath = path.join(imagesFolder, user.profileImagePath);
+                const imagePath = path.join(imagesFolder, user.image);
                 console.log(imagePath);
 
                 try {
@@ -402,7 +402,7 @@ const bulkDeleteUsers = async (req, res, next) => {
         await session.commitTransaction();
         session.endSession();
 
-        res.json({ message: 'Users deleted successfully!' });
+        res.json({ message: `Berhasil menghapus sejumlah ${userIds.length} user!` });
     } catch (err) {
         console.log(err);
         return next(new HttpError('Deleting users failed. Please try again later.', 500));

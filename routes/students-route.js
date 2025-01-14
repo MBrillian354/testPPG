@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', studentsController.getStudents);
 router.get('/:studentId', studentsController.getStudentById);
-router.get('/sub-branch/:teachingGroupId', studentsController.getStudentsByTeachingGroupId);
+router.get('/teaching-group/:teachingGroupId', studentsController.getStudentsByTeachingGroupId);
 // router.get('/teachingGroupYear/:teachingGroupYearId', classController.getClassesByTeachingGroupYearId);
 
 // // router.get('/:userId', usersController.getUsersById);

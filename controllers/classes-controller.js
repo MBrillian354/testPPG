@@ -10,7 +10,24 @@ const TeachingGroupYear = require('../models/teachingGroupYear')
 const Student = require('../models/student')
 const Teacher = require('../models/teacher')
 
+const getClasses = async (req, res, next) => {
 
+    let classes;
+
+    try {
+        classes = await Class.find()
+            .populate([
+                { path: 'teachingGroupYearId', populate: { path: 'teachingGroupId', select: 'name' }, populate: { path: 'academicYearId' } },
+                { path: 'attendances', select: 'forDate' }
+            ])
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Internal server error occurred!", 500));
+    }
+
+    console.log('Get classes requested');
+    res.json({ classes: classes.map(x => x.toObject({ getters: true })) });
+}
 
 const getClassById = async (req, res, next) => {
     const classId = req.params.classId;
@@ -20,14 +37,21 @@ const getClassById = async (req, res, next) => {
     try {
         if (populate === 'all') {
             identifiedClass = await Class.findById(classId)
-                .populate({ path: 'teachingGroupYearId', populate: { path: 'teachingGroupId', select: 'name' }, populate: { path: 'academicYearId' } })
+                .populate([
+                    { path: 'teachingGroupYearId', populate: { path: 'teachingGroupId', select: 'name' }, populate: { path: 'academicYearId' } },
+                    { path: 'attendances', select: 'forDate' }
+                ])
                 .populate({ path: 'teachers' })
                 .populate({ path: 'students' })
         } else if (populate === 'teachingGroupYear') {
             identifiedClass = await Class.findById(classId)
-                .populate({ path: 'teachingGroupYearId', select: ['isActive', 'academicYearId'] , populate: { path: 'academicYearId', select: 'name'}})
+                .populate([
+                    { path: 'teachingGroupYearId', select: ['isActive', 'academicYearId'], populate: { path: 'academicYearId', select: 'name' } },
+                    { path: 'attendances', select: 'forDate' }
+                ])
         } else {
             identifiedClass = await Class.findById(classId)
+                .populate({ path: 'attendances', select: 'forDate' })
         }
     } catch (err) {
         console.error(err);
@@ -77,6 +101,7 @@ const getClassesByIds = async (req, res, next) => {
     try {
         identifiedClasses = await Class.find({ _id: { $in: classIds } })
             .populate({ path: 'teachingGroupYearId', populate: { path: 'academicYearId', select: ['name', 'isActive'] } })
+            .populate({ path: 'attendances', select: 'forDate' })
         // .populate({ path: 'teachers' })
         // .populate({ path: 'students' });
     } catch (err) {
@@ -94,6 +119,26 @@ const getClassesByIds = async (req, res, next) => {
     });
 };
 
+const getClassesByTeachingGroupId = async (req, res, next) => {
+    const teachingGroupId = req.params.teachingGroupId;
+
+    let classes;
+
+    try {
+        classes = await Class.find().populate([{
+            path: 'teachingGroupYearId',
+            match: { teachingGroupId },
+        },
+        { path: 'attendances', select: 'forDate' }
+        ]);
+    } catch (err) {
+        console.error(err);
+        return next(new HttpError("Internal server error occurred!", 500));
+    }
+    console.log(classes)
+    console.log('Get classes requested by TeachingGroupId requested');
+    res.json({ classes: classes.map(x => x.toObject({ getters: true })) });
+}
 
 const getClassesByTeachingGroupYearId = async (req, res, next) => {
     const teachingGroupYearId = req.params.teachingGroupYearId;
@@ -106,8 +151,8 @@ const getClassesByTeachingGroupYearId = async (req, res, next) => {
         console.error(err);
         return next(new HttpError("Internal server error occurred!", 500));
     }
-
-    console.log('Get classes requested');
+    console.log(classes)
+    console.log('Get classes requested by TeachingGroupYearId requested');
     res.json({ classes: classes.map(x => x.toObject({ getters: true })) });
 }
 
@@ -123,7 +168,7 @@ const createClass = async (req, res, next) => {
     }
 
     if (!identifiedTeachingGroupYear) {
-        return next(new HttpError('Tahun ajaran belum terdaftar di PAC ini!', 500));
+        return next(new HttpError('Tahun ajaran belum terdaftar di KA ini!', 500));
     }
 
     const createdClass = new Class({
@@ -480,9 +525,10 @@ const unlockClassById = async (req, res, next) => {
     res.json({ message: 'Berhasil membuka kelas!', class: identifiedClass.toObject({ getters: true }) });
 }
 
-
+exports.getClasses = getClasses
 exports.getClassById = getClassById
 exports.getClassesByIds = getClassesByIds
+exports.getClassesByTeachingGroupId = getClassesByTeachingGroupId
 exports.getClassesByTeachingGroupYearId = getClassesByTeachingGroupYearId
 exports.createClass = createClass
 exports.deleteClass = deleteClass

@@ -170,10 +170,10 @@ const updateStudent = async (req, res, next) => {
             { new: true, runValidators: true }
         );
 
-        if (student && req.file) {
+        if (student) {
             await User.findByIdAndUpdate(
                 student.userId,
-                { image: req.file.path },
+                { image: req?.file?.path, name: student.name },
                 { new: true, runValidators: true }
             );
         }

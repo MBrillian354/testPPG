@@ -90,8 +90,11 @@ const getTeacherByUserId = async (req, res, next) => {
             .populate({ path: 'userId', select: 'teachingGroupId', populate: { path: 'teachingGroupId', select: 'name', populate: { path: 'branchId', select: 'name' } } })
             .populate({
                 path: 'classIds',
-                populate: { path: 'teachingGroupYearId', populate: { path: 'academicYearId', select: ['name', 'isActive'] } }
-            })
+                populate: [
+                    { path: 'teachingGroupYearId', populate: { path: 'academicYearId', select: ['name', 'isActive'] } },
+                    { path: 'attendances', select: 'forDate' }
+                ]
+            });
     } catch (err) {
         console.error(err);
         return next(new HttpError("Internal server error occurred!", 500));
@@ -126,10 +129,10 @@ const updateTeacher = async (req, res, next) => {
             );
         }
 
-        if (teacher && req.file) {
+        if (teacher) {
             await User.findByIdAndUpdate(
                 teacher.userId,
-                { image: req.file.path },
+                { image: req?.file?.path, name: teacher.name },
                 { new: true, runValidators: true }
             );
         }
