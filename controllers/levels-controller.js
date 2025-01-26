@@ -132,7 +132,7 @@ const createBranch = async (req, res, next) => {
     }
 
     if (existingBranch) {
-        return next(new HttpError(`PC ${name} sudah ada!`, 422));
+        return next(new HttpError(`Desa ${name} sudah ada!`, 422));
     }
 
     const createdBranch = new Branch({
@@ -144,11 +144,11 @@ const createBranch = async (req, res, next) => {
         await createdBranch.save()
     } catch (err) {
         console.log(err);
-        const error = new HttpError('Gagal mendaftarkan PC!', 500);
+        const error = new HttpError('Gagal mendaftarkan Desa!', 500);
         return next(error);
     }
 
-    res.json({ message: `Berhasil mendaftarkan PC ${name}!`, branch: createdBranch.toObject({ getters: true }) });
+    res.json({ message: `Berhasil mendaftarkan Desa ${name}!`, branch: createdBranch.toObject({ getters: true }) });
 }
 
 
@@ -165,7 +165,7 @@ const createTeachingGroup = async (req, res, next) => {
     }
 
     if (!branch) {
-        return next(new HttpError('PC tidak ditemukan!', 500));
+        return next(new HttpError('Desa tidak ditemukan!', 500));
     }
 
     const createdTeachingGroup = new TeachingGroup({
@@ -183,11 +183,11 @@ const createTeachingGroup = async (req, res, next) => {
         await sess.commitTransaction();
     } catch (err) {
         console.log(err);
-        const error = new HttpError('Gagal mendaftarkan KA', 500);
+        const error = new HttpError('Gagal mendaftarkan Kelompok', 500);
         return next(error);
     }
 
-    res.status(202).json({ message: `Berhasil mendaftarkan KA ${branchName}!`, teachingGroup: createdTeachingGroup });
+    res.status(202).json({ message: `Berhasil mendaftarkan Kelompok ${branchName}!`, teachingGroup: createdTeachingGroup });
 }
 
 const deleteBranch = async (req, res, next) => {
@@ -206,7 +206,7 @@ const deleteBranch = async (req, res, next) => {
     }
 
     if (branch.teachingGroups.length > 0) {
-        return next(new HttpError('Gagal menghapus, terdapat KA di PC ini!', 400));
+        return next(new HttpError('Gagal menghapus, terdapat Kelompok di Desa ini!', 400));
     }
 
     try {
@@ -216,7 +216,7 @@ const deleteBranch = async (req, res, next) => {
         return next(new HttpError('Deleting branch failed!', 500));
     }
 
-    res.status(200).json({ message: 'Berhasil menghapus PC!' });
+    res.status(200).json({ message: 'Berhasil menghapus Desa!' });
 };
 
 const deleteTeachingGroup = async (req, res, next) => {
@@ -241,7 +241,7 @@ const deleteTeachingGroup = async (req, res, next) => {
     }
 
     if (teachingGroup.teachingGroupYears.length > 0) {
-        return next(new HttpError('Gagal menghapus, terdapat data semester dalam KA ini!', 400));
+        return next(new HttpError('Gagal menghapus, terdapat data semester dalam Kelompok ini!', 400));
     }
 
     try {
@@ -255,10 +255,10 @@ const deleteTeachingGroup = async (req, res, next) => {
         await sess.commitTransaction();
     } catch (err) {
         console.log(err);
-        return next(new HttpError('Gagal menghapus KA!', 500));
+        return next(new HttpError('Gagal menghapus Kelompok!', 500));
     }
 
-    res.status(200).json({ message: 'Berhasil menghapus KA!' });
+    res.status(200).json({ message: 'Berhasil menghapus Kelompok!' });
 };
 
 const updateBranch = async (req, res, next) => {
@@ -283,7 +283,7 @@ const updateBranch = async (req, res, next) => {
     }
 
     console.log(`branch with ID'${branch._id}' updated!`)
-    res.status(200).json({ message: 'Berhasil mengubah PC!', branch: branch.toObject({ getters: true }) });
+    res.status(200).json({ message: 'Berhasil mengubah Desa!', branch: branch.toObject({ getters: true }) });
 }
 
 const updateTeachingGroup = async (req, res, next) => {

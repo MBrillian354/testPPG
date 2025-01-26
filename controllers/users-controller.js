@@ -127,16 +127,11 @@ const bulkCreateUsersAndStudents = async (req, res, next) => {
 
     let nisStart;
     try {
-        // Find or initialize the counter for the current year
-        const counter = await NisCounter.findOneAndUpdate(
-            { year: currentYear },
-            { $inc: { count: count } },
-            { new: true, upsert: true } // Create if not exists
-        );
-        nisStart = counter.count - count + 1; // Starting NIS for this batch
+        const lastStudent = await Student.findOne({ nis: new RegExp(`^${currentYear}`) }).sort({ nis: -1 });
+        nisStart = lastStudent ? parseInt(lastStudent.nis.slice(4)) + 1 : 1;
     } catch (err) {
         console.error(err);
-        return next(new HttpError('Failed to retrieve or update counter!', 500));
+        return next(new HttpError('Failed to retrieve last NIS!', 500));
     }
 
     const users = [];
@@ -187,13 +182,13 @@ const bulkCreateUsersAndStudents = async (req, res, next) => {
         await Student.insertMany(students);
 
         res.status(201).json({
-            message: 'Berhasil membuat akun siswa!',
+            message: 'Berhasil membuat siswa!',
             usersCount: createdUsers.length,
             studentsCount: students.length,
         });
     } catch (err) {
         console.error(err);
-        return next(new HttpError('Gagal membuat akun siswa!', 500));
+        return next(new HttpError('Gagal membuat siswa!', 500));
     }
 };
 
@@ -225,11 +220,11 @@ const createUser = async (req, res, next) => {
     } catch (err) {
         console.log("ada EERRORR")
         console.log(err)
-        return next(new HttpError(err ? err : 'Kelompok Ajar tidak ditemukan!', 500));
+        return next(new HttpError(err ? err : 'Kelompok tidak ditemukan!', 500));
     }
 
     if (!teachingGroup) {
-        return next(new HttpError('Kelompok Ajar tidak ditemukan!', 404));
+        return next(new HttpError('Kelompok tidak ditemukan!', 404));
     }
 
     let hashedPassword;

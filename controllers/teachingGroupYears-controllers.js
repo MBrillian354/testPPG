@@ -123,7 +123,7 @@ const registerYearToTeachingGroup = async (req, res, next) => {
         return next(new HttpError('Tahun ajaran tidak ditemukan!', 500));
     }
     if (!existingTeachingGroup) {
-        return next(new HttpError('KA ajaran tidak ditemukan!', 500));
+        return next(new HttpError('Kelompok ajaran tidak ditemukan!', 500));
     }
 
     // checking exsisting teachingGroupYear document
@@ -136,7 +136,7 @@ const registerYearToTeachingGroup = async (req, res, next) => {
     }
 
     if (existingTeachingGroupYear) {
-        return next(new HttpError('Tahun ajaran sudah terdaftar untuk KA ini!', 500));
+        return next(new HttpError('Tahun ajaran sudah terdaftar untuk Kelompok ini!', 500));
     }
 
 

@@ -99,6 +99,7 @@ const createNewAttendanceForClass = async (req, res, next) => {
                 timestamp,
                 status: "Tanpa Keterangan",
                 attributes: false,
+                violations: { attribute: false, attitude: false, tidiness: false },
                 studentId,
                 classId,
             });
@@ -265,10 +266,10 @@ const updateAttendancesByIds = async (req, res, next) => {
     }
 
     try {
-        const updatePromises = updates.map(({ attendanceId, status, attributes, timestamp }) =>
+        const updatePromises = updates.map(({ attendanceId, status, attributes, violations, timestamp }) =>
             Attendance.findByIdAndUpdate(
                 attendanceId,
-                { status, attributes, timestamp },
+                { status, attributes, violations, timestamp },
                 { new: true, runValidators: true }
             )
         );

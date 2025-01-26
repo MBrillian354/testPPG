@@ -182,7 +182,7 @@ const updateAcademicYear = async (req, res, next) => {
     }
 
     if (academicYear.teachingGroupYears.length > 0) {
-        return next(new HttpError('Gagal menghapus, terdapat KA terdaftar!', 400));
+        return next(new HttpError('Gagal menghapus, terdapat Kelompok terdaftar!', 400));
     }
 
     console.log(`academicYear with ID'${academicYear._id}' updated!`)
@@ -205,7 +205,7 @@ const deleteAcademicYear = async (req, res, next) => {
     }
 
     if (academicYear.teachingGroupYears.length > 0) {
-        return next(new HttpError('Gagal menghapus, terdapat KA terdaftar!', 400));
+        return next(new HttpError('Gagal menghapus, terdapat Kelompok terdaftar!', 400));
     }
 
     try {

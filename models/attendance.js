@@ -7,6 +7,7 @@ const attendanceSchema = new Schema({
     timestamp: { type: Date, required: true },
     status: { type: String, required: true },
     attributes: { type: Boolean, required: true },
+    violations: { type: Object, required: true },
     studentId: { type: mongoose.Types.ObjectId, required: true, ref: 'Student' },
     classId: { type: mongoose.Types.ObjectId, required: true, ref: 'Class', index: true },
 });

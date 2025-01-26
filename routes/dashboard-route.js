@@ -1,6 +1,7 @@
 const express = require('express');
 
 const dashboardController = require('../controllers/dashboard-controller')
+const checkAuth = require('../middlewares/check-auth')
 
 const router = express.Router();
 
@@ -8,7 +9,7 @@ const router = express.Router();
 
 // router.delete('/:userId', usersController.deleteUser);
 
-router.get('/', dashboardController.getDashboardData)
+router.post('/', checkAuth, dashboardController.getDashboardData)
 
 
 module.exports = router; 

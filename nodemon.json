@@ -1,7 +1,7 @@
 {
     "env": {
         "DB_USER": "admin",
-        "DB_PASSWORD": "1234",
+        "DB_PASSWORD": "15062009",
         "DB_NAME": "ppgAcademicSystem",
         "JWT_KEY": "JWT_KEY_HERE"
     }

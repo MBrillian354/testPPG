@@ -168,7 +168,7 @@ const createClass = async (req, res, next) => {
     }
 
     if (!identifiedTeachingGroupYear) {
-        return next(new HttpError('Tahun ajaran belum terdaftar di KA ini!', 500));
+        return next(new HttpError('Tahun ajaran belum terdaftar di Kelompok ini!', 500));
     }
 
     const createdClass = new Class({
