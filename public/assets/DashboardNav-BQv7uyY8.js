@@ -1,0 +1,31 @@
+import{r as l,S as j,A as x,u as b,j as a,N as y}from"./index-CMqcppKw.js";import{L as g,S as f,H as o,P as d,G as c,C as h}from"./Sidebar-CNSqRBiv.js";import{F as v}from"./FloatingMenu-DwAFAhA6.js";import{B as C}from"./BackButton-Ycns1Poy.js";import{c as s}from"./createLucideIcon-DFyZBoOJ.js";import{C as L}from"./chevron-left-DV2Zs7Ad.js";import{C as N}from"./chevron-right-CUVfjJy4.js";import{G as m}from"./graduation-cap-C09X5S83.js";import{U as k}from"./users-CGFePWF9.js";/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const w=s("ArrowRightLeft",[["path",{d:"m16 3 4 4-4 4",key:"1x1c3m"}],["path",{d:"M20 7H4",key:"zbl0bi"}],["path",{d:"m8 21-4-4 4-4",key:"h9nckh"}],["path",{d:"M4 17h16",key:"g4d7ey"}]]);/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const P=s("FolderCog",[["circle",{cx:"18",cy:"18",r:"3",key:"1xkwt0"}],["path",{d:"M10.3 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v3.3",key:"1k8050"}],["path",{d:"m21.7 19.4-.9-.3",key:"1qgwi9"}],["path",{d:"m15.2 16.9-.9-.3",key:"1t7mvx"}],["path",{d:"m16.6 21.7.3-.9",key:"1j67ps"}],["path",{d:"m19.1 15.2.3-.9",key:"18r7jp"}],["path",{d:"m19.6 21.7-.4-1",key:"z2vh2"}],["path",{d:"m16.8 15.3-.4-1",key:"1ei7r6"}],["path",{d:"m14.3 19.6 1-.4",key:"11sv9r"}],["path",{d:"m20.7 16.8 1-.4",key:"19m87a"}]]);/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const M=s("Layers2",[["path",{d:"m16.02 12 5.48 3.13a1 1 0 0 1 0 1.74L13 21.74a2 2 0 0 1-2 0l-8.5-4.87a1 1 0 0 1 0-1.74L7.98 12",key:"1cuww1"}],["path",{d:"M13 13.74a2 2 0 0 1-2 0L2.5 8.87a1 1 0 0 1 0-1.74L11 2.26a2 2 0 0 1 2 0l8.5 4.87a1 1 0 0 1 0 1.74Z",key:"pdlvxu"}]]);/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const H=s("Settings",[["path",{d:"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z",key:"1qme2f"}],["circle",{cx:"12",cy:"12",r:"3",key:"1v7zrd"}]]);/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const S=s("UserCog",[["circle",{cx:"18",cy:"15",r:"3",key:"gjjjvw"}],["circle",{cx:"9",cy:"7",r:"4",key:"nufk8"}],["path",{d:"M10 15H6a4 4 0 0 0-4 4v2",key:"1nfge6"}],["path",{d:"m21.7 16.4-.9-.3",key:"12j9ji"}],["path",{d:"m15.2 13.9-.9-.3",key:"1fdjdi"}],["path",{d:"m16.6 18.7.3-.9",key:"heedtr"}],["path",{d:"m19.1 12.2.3-.9",key:"1af3ki"}],["path",{d:"m19.6 18.7-.4-1",key:"1x9vze"}],["path",{d:"m16.8 12.3-.4-1",key:"vqeiwj"}],["path",{d:"m14.3 16.6 1-.4",key:"1qlj63"}],["path",{d:"m20.7 13.8 1-.4",key:"1v5t8k"}]]);/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const z=s("User",[["path",{d:"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2",key:"975kel"}],["circle",{cx:"12",cy:"7",r:"4",key:"17ys0d"}]]),U=()=>{const t=l.useContext(j),e=l.useContext(x),n=b(),p=()=>{t.toggle()},i=()=>a.jsx(v,{boxWidth:"w-36",label:e.userName,style:"btn-secondary-outline-sharp py-3",buttons:[{icon:z,label:"Profile",onClick:()=>n(`/profile/${e.userId}`)},{icon:g,label:"Logout",variant:"danger",onClick:()=>e.logout()}]}),u=[...e.currentTeachingGroupYear?[]:[],{id:2,name:e.userRole,path:"",icon:a.jsx(H,{})}];return a.jsx("nav",{className:"bg-white",children:a.jsx("div",{className:"px-4 mx-auto w-full",children:a.jsxs("div",{className:"flex justify-between items-center h-16",children:[a.jsxs("div",{className:"flex gap-6 items-center",children:[a.jsx("div",{className:"flex flex-shrink-0",children:a.jsx("button",{className:"p-2 rounded-full focus:bg-gray-200 hover:outline-none hover:ring-1 hover:ring-offset-1 hover:ring-gray-400",onClick:p,children:t.isSidebarOpen?a.jsx(L,{size:24}):a.jsx(N,{size:24})})}),a.jsx(C,{})]}),a.jsxs("div",{className:"hidden md:flex space-x-8",children:[u.map(r=>a.jsx(y,{to:r.path,className:"btn-secondary-outline-sharp py-3",children:r.name},r.id)),a.jsx(i,{})]}),a.jsx("div",{className:"align-center md:hidden flex space-x-4",children:a.jsx(i,{})})]})})})},O=({children:t})=>{const e=l.useContext(x);let n=[];return e.userRole==="admin"?n=[{link:"/dashboard",icon:a.jsx(o,{}),label:"Dashboard",end:!0},{link:"/dashboard/classes",icon:a.jsx(d,{}),label:"Kelas"},{link:"/dashboard/teachers",icon:a.jsx(m,{}),label:"Tenaga Pendidik"},{link:"/dashboard/students",icon:a.jsx(k,{}),label:"Peserta Didik"},{link:"/performance",icon:a.jsx(c,{}),label:"Performa Kehadiran"},{link:null,icon:a.jsx(P,{}),label:"Manajemen",end:!0,subOptions:[{link:"/settings/levels",label:"Desa dan Kelompok",icon:a.jsx(M,{})},{link:"/settings/academic",label:"Tahun Ajaran",icon:a.jsx(h,{})},{link:"/settings/users",label:"User",icon:a.jsx(S,{})}]}]:n=[{link:"/dashboard",icon:a.jsx(o,{}),label:"Dashboard",end:!0},{link:"/dashboard/classes",icon:a.jsx(d,{}),label:"Kelas"},{link:"/dashboard/teachers",icon:a.jsx(m,{}),label:"Tenaga Pendidik"},{link:"/dashboard/students",icon:a.jsx(k,{}),label:"Peserta Didik"},{link:"/performance",icon:a.jsx(c,{}),label:"Performa Kehadiran"},{link:"/settings/academic",icon:a.jsx(h,{}),label:"Tahun Ajaran Kelompok"},{link:"/settings/transfer-students",icon:a.jsx(w,{}),label:"Mutasi dan Pindah Sambung"}],a.jsxs(f,{linksList:n,children:[a.jsx(U,{}),t]})};export{O as default};

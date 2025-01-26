@@ -1,1 +1,0 @@
-import{R as n}from"./index-DkRdKdNm.js";var t=n.forwardRef((e,c)=>{const i={...e,ref:c};return typeof e.icon=="object"&&(i.icon=JSON.stringify(e.icon)),e.inline||delete i.inline,e.className&&(i.class=e.className),n.createElement("iconify-icon",i)});export{t as I};
