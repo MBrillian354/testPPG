@@ -58,17 +58,25 @@ const getUsersById = async (req, res, next) => {
 
 
 const login = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, nis } = req.body;
+
+    console.log(password)
+    console.log(nis)
 
     let existingUser;
     try {
-        existingUser = await User.findOne({ email: email }).populate('teachingGroupId');
+        if (email) {
+            existingUser = await User.findOne({ email: email }).populate('teachingGroupId');
+        } else if (nis) {
+            const student = await Student.findOne({ nis: nis }).populate('userId');
+            existingUser = student ? student.userId : null;
+        }
     } catch (err) {
         return next(new HttpError('Internal server error occurred!', 500));
     }
 
     if (!existingUser) {
-        return next(new HttpError("Email tidak terdaftar, hubungi PJP!", 404))
+        return next(new HttpError("Email atau NIS tidak terdaftar, hubungi PJP!", 404));
     }
 
     let isPasswordValid;
@@ -92,8 +100,8 @@ const login = async (req, res, next) => {
     const userWithoutPassword = existingUser.toObject({ getters: true });
     delete userWithoutPassword.password;
 
-    console.log(`User ${email} logged in.`)
-    res.json({ message: "Logged in successfully!", user: userWithoutPassword, token })
+    console.log(`User ${email || nis} logged in.`);
+    res.json({ message: "Logged in successfully!", user: userWithoutPassword, token });
 };
 
 const bulkCreateUsersAndStudents = async (req, res, next) => {
@@ -142,10 +150,16 @@ const bulkCreateUsersAndStudents = async (req, res, next) => {
 
         const userEmail = `student${nis}@contohaja.com`; // Unique email for each student
 
+        let hashedPassword;
+        try {
+            hashedPassword = await bcrypt.hash('1234', 12) //default password
+        } catch (err) {
+            return next(new HttpError('Gagal menambahkan user!', 500));
+        }
         const newUser = {
             name: `Student ${i + 1}`,
             email: userEmail,
-            password: '12345678', // Default password
+            password: hashedPassword, // Default password
             role,
             image: '',
             teachingGroupId: teachingGroup._id,

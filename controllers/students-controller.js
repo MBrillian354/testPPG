@@ -45,7 +45,38 @@ const getStudentById = async (req, res, next) => {
     }
 
     console.log('Get student requested');
+    if (!student) {
+        return next(new HttpError("Student not found!", 404));
+    }
+
     res.json({ student: student.toObject({ getters: true }) });
+}
+
+const getStudentByNis = async (req, res, next) => {
+    const nis = req.params.nis;
+
+    let student;
+    try {
+        student = await Student.find({ nis: nis });
+        // .populate({ path: 'userId', select: 'name', populate: { path: 'branchId', select: 'name' } });
+
+        if (student.length === 0) {
+            return next(new HttpError("Student not found!", 404));
+        }
+
+        student = {
+            nis: student[0].nis,
+            name: student[0].name,
+            email: student[0].email,
+        } // Access the first element
+
+    } catch (err) {
+        console.log(err)
+        return next(new HttpError("Internal server error occured!", 500))
+    }
+
+    console.log(`Get student with ${nis}`)
+    res.json({ student });
 }
 
 const getStudentReportByIdAndClassId = async (req, res, next) => {
@@ -194,6 +225,7 @@ const updateStudent = async (req, res, next) => {
 }
 
 exports.getStudentById = getStudentById
+exports.getStudentByNis = getStudentByNis
 exports.getStudentReportByIdAndClassId = getStudentReportByIdAndClassId
 exports.getStudents = getStudents
 exports.getStudentsByTeachingGroupId = getStudentsByTeachingGroupId
