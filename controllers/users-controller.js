@@ -66,7 +66,8 @@ const login = async (req, res, next) => {
     let existingUser;
     try {
         if (email) {
-            existingUser = await User.findOne({ email: email }).populate('teachingGroupId');
+            existingUser = await User.findOne({ email: email })
+                .populate({ path: 'teachingGroupId', select: 'name', populate: { path: 'branchId', select: 'name' } });
         } else if (nis) {
             const student = await Student.findOne({ nis: nis }).populate('userId');
             existingUser = student ? student.userId : null;

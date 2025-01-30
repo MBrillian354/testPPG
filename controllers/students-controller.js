@@ -13,7 +13,7 @@ const getStudents = async (req, res, next) => {
         console.log(err)
         return next(new HttpError("Internal server error occured!", 500))
     }
-    console.log('Get users requested')
+    console.log('Get all students requested')
     res.json({ students: students.map(x => x.toObject({ getters: true })) })
 };
 

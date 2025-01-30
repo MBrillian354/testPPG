@@ -35,7 +35,9 @@ app.use(express.static(path.join('public')));
 // Logging middleware to check request paths
 app.use((req, res, next) => {
     console.log(`Request URL: ${req.url}`);
-    next();
+    setTimeout(() => {
+        next();
+    }, 0);
 });
 
 // CORS handling

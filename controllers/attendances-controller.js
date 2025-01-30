@@ -294,16 +294,105 @@ const updateAttendancesByIds = async (req, res, next) => {
 
 
 
+// const getAttendanceReports = async (req, res, next) => {
+//     const { academicYearId, branchId, teachingGroupId, classId, month } = req.body;
+
+
+//     const filter = {};
+
+//     if (academicYearId) {
+//         filter.academicYearId = academicYearId;
+//     }
+
+//     let teachingGroupYears
+//     try {
+//         teachingGroupYears = await TeachingGroupYear.find(filter)
+//             .populate({
+//                 path: 'classes',
+//                 populate: [
+//                     { path: 'attendances', populate: { path: 'studentId', select: ['name', 'nis', 'image'] } },
+//                     { path: 'teachers', select: ['name', 'nid'] }
+//                 ]
+//             })
+//             .populate({
+//                 path: 'teachingGroupId',
+//                 select: 'name',
+//                 populate: {
+//                     path: 'branchId',
+//                     select: 'name'
+//                 }
+//             });
+
+//         if (month) {
+//             let convertedMonth = month
+//             if (typeof month === 'string') {
+//                 convertedMonth = parseInt(month);
+//             }
+//             teachingGroupYears = teachingGroupYears.map(teachingGroupYear => {
+//                 const filteredClasses = teachingGroupYear.classes.map(cls => {
+//                     const filteredAttendances = cls.attendances.filter(attendance => {
+//                         const attendanceDate = new Date(attendance.forDate);
+//                         return attendanceDate.getMonth() + 1 === convertedMonth;
+//                     });
+//                     // Use toObject to create a copy, modify attendance, then return
+//                     const updatedClass = cls.toObject();
+//                     updatedClass.attendances = filteredAttendances;
+//                     return updatedClass;
+//                 });
+
+//                 const updatedTeachingGroupYear = teachingGroupYear.toObject();
+//                 updatedTeachingGroupYear.classes = filteredClasses;
+//                 return updatedTeachingGroupYear;
+//             });
+//         }
+
+//         if (branchId) {
+//             teachingGroupYears = teachingGroupYears.filter(teachingGroupYear => teachingGroupYear.teachingGroupId.branchId._id.toString() === branchId)
+//         }
+
+//         if (teachingGroupId) {
+//             teachingGroupYears = teachingGroupYears.filter(teachingGroupYear => teachingGroupYear.teachingGroupId._id.toString() === teachingGroupId);
+//         }
+
+//         console.log(teachingGroupYears)
+
+//         if (classId) {  //ClassId Filter
+//             teachingGroupYears = teachingGroupYears.map(teachingGroupYear => {
+//                 const teachingGroupYearCopy = teachingGroupYear; // Create a copy FIRST
+//                 teachingGroupYearCopy.classes = teachingGroupYearCopy.classes.filter(cls => cls._id.toString() === classId);
+//                 if (teachingGroupYearCopy.classes.length > 0) {
+//                     return teachingGroupYearCopy; // Return the copy
+//                 } else {
+//                     return null;  // Handle cases where classId isn't found
+//                 }
+//             }).filter(Boolean); // Remove any nulls
+//         }
+
+//         console.log(teachingGroupYears)
+
+//         if (!teachingGroupYears || teachingGroupYears.length === 0) {
+//             console.log('No matching attendances found for the given filters.');
+//             return res.status(200).json([]); // Or handle not found error if that's preferred
+//         }
+
+//         console.log(`Retrieved attendance reports based on filters`);
+//         return res.status(200).json({ teachingGroupYears });
+
+//     } catch (error) {
+//         console.error('Error retrieving attendance reports:', error);
+//         return next(new HttpError('Internal server error occurred!', 500));
+//     }
+// };
 const getAttendanceReports = async (req, res, next) => {
-    const { academicYearId, branchId, teachingGroupId, classId, month } = req.body;
-    // Build the filter object based on provided query parameters
+    const { academicYearId, branchId, teachingGroupId, classId, startDate, endDate } = req.body;
+
     const filter = {};
 
     if (academicYearId) {
         filter.academicYearId = academicYearId;
     }
 
-    let teachingGroupYears
+    let teachingGroupYears;
     try {
         teachingGroupYears = await TeachingGroupYear.find(filter)
             .populate({
@@ -322,16 +411,14 @@ const getAttendanceReports = async (req, res, next) => {
                 }
             });
 
-        if (month) {
-            let convertedMonth = month
-            if (typeof month === 'string') {
-                convertedMonth = parseInt(month);
-            }
+        if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
             teachingGroupYears = teachingGroupYears.map(teachingGroupYear => {
                 const filteredClasses = teachingGroupYear.classes.map(cls => {
                     const filteredAttendances = cls.attendances.filter(attendance => {
                         const attendanceDate = new Date(attendance.forDate);
-                        return attendanceDate.getMonth() + 1 === convertedMonth;
+                        return attendanceDate >= start && attendanceDate <= end;
                     });
                     // Use toObject to create a copy, modify attendance, then return
                     const updatedClass = cls.toObject();
@@ -345,18 +432,15 @@ const getAttendanceReports = async (req, res, next) => {
             });
         }
 
-
-
         if (branchId) {
-            teachingGroupYears = teachingGroupYears.filter(teachingGroupYear => teachingGroupYear.teachingGroupId.branchId._id.toString() === branchId)
+            teachingGroupYears = teachingGroupYears.filter(teachingGroupYear => teachingGroupYear.teachingGroupId.branchId._id.toString() === branchId);
         }
 
         if (teachingGroupId) {
             teachingGroupYears = teachingGroupYears.filter(teachingGroupYear => teachingGroupYear.teachingGroupId._id.toString() === teachingGroupId);
         }
 
-        console.log(teachingGroupYears)
-
+        console.log(teachingGroupYears);
 
         if (classId) {  //ClassId Filter
             teachingGroupYears = teachingGroupYears.map(teachingGroupYear => {
@@ -370,7 +454,7 @@ const getAttendanceReports = async (req, res, next) => {
             }).filter(Boolean); // Remove any nulls
         }
 
-        console.log(teachingGroupYears)
+        console.log(teachingGroupYears);
 
         if (!teachingGroupYears || teachingGroupYears.length === 0) {
             console.log('No matching attendances found for the given filters.');
@@ -385,7 +469,6 @@ const getAttendanceReports = async (req, res, next) => {
         return next(new HttpError('Internal server error occurred!', 500));
     }
 };
-
 
 exports.getAttendanceReports = getAttendanceReports
 
