@@ -1,0 +1,6 @@
+import{j as r}from"./index-CBFEDf3H.js";import{c as l}from"./createLucideIcon-BukOYC3u.js";/**
+ * @license lucide-react v0.454.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const n=l("CircleAlert",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["line",{x1:"12",x2:"12",y1:"8",y2:"12",key:"1pkeuh"}],["line",{x1:"12",x2:"12.01",y1:"16",y2:"16",key:"4dfq90"}]]),o=e=>r.jsxs("div",{onClick:e.onClick,className:`flex font-normal w-full bg-orange-100 border border-orange-400 text-orange-700 px-4 py-3 rounded relative mb-4 ${e.className}`,role:"alert",children:[r.jsx(n,{}),r.jsx("span",{className:"ml-2",children:e.warning})]});export{o as W};
