@@ -1,1 +1,0 @@
-import{j as e}from"./index-Baf2cdGO.js";const l=({studentName:s,clsName:i})=>{const r=t=>t==null?void 0:t.split(" ").map(o=>o[0]).join("").toUpperCase().slice(0,2);return e.jsx("div",{className:`${i}`,children:r(s)})};export{l as S};
