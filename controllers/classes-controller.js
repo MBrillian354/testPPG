@@ -125,12 +125,11 @@ const getClassesByTeachingGroupId = async (req, res, next) => {
     let classes;
 
     try {
-        classes = await Class.find().populate([{
-            path: 'teachingGroupYearId',
-            match: { teachingGroupId },
-        },
-        { path: 'attendances', select: 'forDate' }
-        ]);
+        classes = await Class.find({ 'teachingGroupYearId.teachingGroupId': teachingGroupId })
+            .populate([
+                { path: 'teachingGroupYearId', select: 'teachingGroupId', },
+                { path: 'attendances', select: 'forDate' }
+            ]);
     } catch (err) {
         console.error(err);
         return next(new HttpError("Internal server error occurred!", 500));
