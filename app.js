@@ -14,6 +14,7 @@ const studentsRoutes = require('./routes/students-route');
 const attendancesRoutes = require('./routes/attendances-route');
 const dashboardRoutes = require('./routes/dashboard-route')
 const journalsRoutes = require('./routes/journals-route')
+const materialProgressesRoutes = require('./routes/materialProgresses-route')
 const HttpError = require('./models/http-error');
 
 const app = express();
@@ -61,6 +62,7 @@ app.use('/api/students', studentsRoutes);
 app.use('/api/attendances', attendancesRoutes);
 app.use('/api/dashboard', dashboardRoutes)
 app.use('/api/journals', journalsRoutes)
+app.use('/api/materialProgress', materialProgressesRoutes)
 
 app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, 'public', 'index.html'));

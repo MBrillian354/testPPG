@@ -11,6 +11,7 @@ const studentSchema = new Schema({
     parentName: { type: String, required: false },
     address: { type: String, required: false },
     image: { type: String, required: false },
+    isActive: { type: Boolean, required: false },
     attendanceIds: [{ type: mongoose.Types.ObjectId, required: false, ref: 'Attendance' }],
     isProfileComplete: { type: Boolean, required: false },
     classIds: [{ type: mongoose.Types.ObjectId, required: false, ref: 'Class' }],
